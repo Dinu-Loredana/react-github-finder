@@ -32,26 +32,19 @@ export const GithubProvider = ({ children }) => {
     });
   };
 
-  // Get initial users (testing purposes)
-  //   const fetchUsers = async () => {
-  //     setIsLoading();
-  //     const response = await fetch(`${GITHUB_URL}/users`, {
-  //       headers: {
-  //         Authorization: `token ${GITHUB_TOKEN}`,
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     dispatch({
-  //       type: "GET_USERS",
-  //       payload: data,
-  //     });
-  //   };
-
+  // Set loading to true
   const setIsLoading = () => dispatch({ type: "SET_IS_LOADING" });
+  // Clear users from state
+  const clearUsers = () => dispatch({ type: "CLEAR_USERS" });
 
   return (
     <GithubContext.Provider
-      value={{ users: state.users, isLoading: state.isLoading, searchUsers }}
+      value={{
+        users: state.users,
+        isLoading: state.isLoading,
+        searchUsers,
+        clearUsers,
+      }}
     >
       {children}
     </GithubContext.Provider>
