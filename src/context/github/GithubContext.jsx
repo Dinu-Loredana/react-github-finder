@@ -9,30 +9,49 @@ const GithubContext = createContext();
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
-    isLoading: true,
+    isLoading: false,
   };
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-  // Get initial users (testing purposes)
-  const fetchUsers = async () => {
+  // Get search users
+  const searchUsers = async (text) => {
     setIsLoading();
-    const response = await fetch(`${GITHUB_URL}/users`, {
+
+    const params = new URLSearchParams({
+      q: text,
+    });
+    const response = await fetch(`${GITHUB_URL}/search/users?${params}`, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
-    const data = await response.json();
+    const { items } = await response.json();
     dispatch({
       type: "GET_USERS",
-      payload: data,
+      payload: items,
     });
   };
+
+  // Get initial users (testing purposes)
+  //   const fetchUsers = async () => {
+  //     setIsLoading();
+  //     const response = await fetch(`${GITHUB_URL}/users`, {
+  //       headers: {
+  //         Authorization: `token ${GITHUB_TOKEN}`,
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     dispatch({
+  //       type: "GET_USERS",
+  //       payload: data,
+  //     });
+  //   };
 
   const setIsLoading = () => dispatch({ type: "SET_IS_LOADING" });
 
   return (
     <GithubContext.Provider
-      value={{ users: state.users, isLoading: state.isLoading, fetchUsers }}
+      value={{ users: state.users, isLoading: state.isLoading, searchUsers }}
     >
       {children}
     </GithubContext.Provider>
