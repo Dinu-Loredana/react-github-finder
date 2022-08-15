@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* overwrite CSS tailwind classes */
+.custom-card-image .card.image-full:before {
+  border-radius: 0.4rem;
+  opacity: 0.4;
+}
+a,
+.card-actions a,
+p,
+.btn-ghost,
+.card-title,
+.btn,
+.github-icon-color,
+.stat {
+  color: white;
+  text-decoration: inherit;
+}
+
+.text-opacity-40 {
+  --tw-text-opacity: 0.6;
+}
