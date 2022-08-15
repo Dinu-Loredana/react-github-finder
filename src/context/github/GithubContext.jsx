@@ -26,6 +26,7 @@ export const GithubProvider = ({ children }) => {
       },
     });
     const { items } = await response.json();
+    // update state with the data received
     dispatch({
       type: "GET_USERS",
       payload: items,
