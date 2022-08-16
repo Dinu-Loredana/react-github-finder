@@ -15,17 +15,11 @@ export const GithubProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
-  // Set loading to true
-  const setIsLoading = () => dispatch({ type: "SET_IS_LOADING" });
-  // Clear users from state
-  const clearUsers = () => dispatch({ type: "CLEAR_USERS" });
-
   return (
     <GithubContext.Provider
       value={{
         ...state,
         dispatch,
-        clearUsers,
       }}
     >
       {children}
