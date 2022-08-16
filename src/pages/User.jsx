@@ -2,14 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
 import GithubContext from "../context/github/GithubContext";
+import RepoList from "../components/repos/RepoList";
 import { Spinner } from "../components/layout/Spinner";
 
 const User = () => {
   const params = useParams();
-  const { getUser, user, isLoading } = useContext(GithubContext);
+  const { getUser, user, isLoading, repos, getUserRepos } =
+    useContext(GithubContext);
 
   useEffect(() => {
     getUser(params.login);
+    getUserRepos(params.login);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,7 +32,8 @@ const User = () => {
     public_gists,
     hireable,
   } = user;
-  
+
+  console.log("repos", repos);
   if (isLoading) {
     return <Spinner />;
   }
@@ -159,6 +163,7 @@ const User = () => {
             </div>
           </div>
         </div>
+        <RepoList repos={repos} />
       </div>
     </>
   );
