@@ -33,7 +33,6 @@ const User = () => {
     hireable,
   } = user;
 
-  console.log("repos", repos);
   if (isLoading) {
     return <Spinner />;
   }
